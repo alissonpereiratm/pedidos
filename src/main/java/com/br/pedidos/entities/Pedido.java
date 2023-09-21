@@ -17,13 +17,10 @@ public class Pedido {
     private LocalDate data;
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Usuario usuario;
-
- 
-
-    @Override
-    public String toString() {
-        return "Pedido [id=" + id + ", data=" + data + ", usuario=" + usuario + "]";
-    }
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private Endereco endereco;
+    @ManyToOne(cascade = CascadeType.REFRESH)
+    private FormaPagamento formaPagamento;
 
     public Pedido(int id, LocalDate data, Usuario usuario) {
         this.id = id;
@@ -44,6 +41,22 @@ public class Pedido {
 
     public LocalDate getData() {
         return data;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
     }
 
     public void setData(LocalDate data) {

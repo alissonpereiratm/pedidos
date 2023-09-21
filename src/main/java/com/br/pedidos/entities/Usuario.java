@@ -24,16 +24,7 @@ public class Usuario {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Pedido> pedidos;
 
- 
 
-    public Usuario(int id, String nome, String usuarioNome, String cpf, String email, List<Pedido> pedidos) {
-        this.id = id;
-        this.nome = nome;
-        this.usuarioNome = usuarioNome;
-        this.cpf = cpf;
-        this.email = email;
-        this.pedidos = pedidos;
-    }
 
     public Usuario() {
     }

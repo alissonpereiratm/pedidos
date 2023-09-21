@@ -2,8 +2,15 @@ package com.br.pedidos;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {
+		"com.br.pedidos.entities",
+		"com.br.pedidos.repository",
+		"com.br.pedidos.controllers",
+})
+
+@EnableJpaRepositories
 public class PedidosApplication {
 
 	public static void main(String[] args) {

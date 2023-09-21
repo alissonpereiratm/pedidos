@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class PedidoController {
         return pedidoRepository.findById(id).get();
     }
 
-     @GetMapping("/excluir/{id}")
+    @DeleteMapping("/excluir/{id}")
     public void delPedido(@PathVariable("id") int id) {
         pedidoRepository.deleteById(id);
 
