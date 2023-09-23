@@ -12,35 +12,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.pedidos.entities.Pedido;
-import com.br.pedidos.entities.Usuario;
 import com.br.pedidos.repository.PedidoRepository;
+import com.br.pedidos.services.PedidoService;
 
 @RestController
 @RequestMapping(value = "/pedido")
 public class PedidoController {
-       @Autowired
-   PedidoRepository pedidoRepository;
+
+    @Autowired
+    PedidoService pedidoService;
 
     @PostMapping("/cadastro")
     public void cadastro(Pedido pedido) {
-        pedido.setData(LocalDate.now());
-        pedidoRepository.save(pedido);
-
+      pedidoService.cadastro(pedido);
     }
 
     @GetMapping("/lista")
     public List<Pedido> getObject() {
-        return pedidoRepository.findAll();
+        return pedidoService.getObject() ;
     }
 
     @GetMapping("/buscaId/{id}")
     public Pedido getPedido(@PathVariable("id") int id) {
-        return pedidoRepository.findById(id).get();
+        return pedidoService.getPedido(id);
     }
 
     @DeleteMapping("/excluir/{id}")
     public void delPedido(@PathVariable("id") int id) {
-        pedidoRepository.deleteById(id);
+       pedidoService.delPedido(id);;
 
     }
 }

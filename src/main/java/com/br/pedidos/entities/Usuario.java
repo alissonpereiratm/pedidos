@@ -24,8 +24,6 @@ public class Usuario {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Pedido> pedidos;
 
-
-
     public Usuario() {
     }
 

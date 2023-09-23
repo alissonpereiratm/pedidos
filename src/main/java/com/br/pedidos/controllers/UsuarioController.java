@@ -16,53 +16,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.pedidos.entities.Usuario;
 import com.br.pedidos.repository.UsuarioRepository;
+import com.br.pedidos.services.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
     @Autowired
-    UsuarioRepository usuarioRepository;
+    UsuarioService usuarioService;
 
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(Usuario usuario) {
-        usuarioRepository.save(usuario);
+    usuarioService.cadastro(usuario);
         return ResponseEntity.ok("Usuario salvo com sucesso.");
-
     }
-
 
     @PutMapping("/updateByName/{nome}")
     public ResponseEntity<String> updateUsuarioByName(@PathVariable String nome, @RequestBody Usuario updateUsuario) {
-        Optional<Usuario> existingUsuarioOptional = usuarioRepository.findByNome(nome);
-
-        if (existingUsuarioOptional.isPresent()) {
-            Usuario existingUsuario = existingUsuarioOptional.get();
-            existingUsuario.setNome(updateUsuario.getNome());
-            existingUsuario.setUsuarioNome(updateUsuario.getUsuarioNome());
-            existingUsuario.setCpf(updateUsuario.getCpf());
-            existingUsuario.setEmail(updateUsuario.getEmail());
-            usuarioRepository.save(existingUsuario);
+        if (usuarioService.updateUsuarioByName(nome, updateUsuario)) {
             return ResponseEntity.ok("Usuario updated successfully.");
         } else {
             return ResponseEntity.notFound().build();
         }
-
     }
+
     @GetMapping("/lista")
     public List<Usuario> getObject() {
-        return usuarioRepository.findAll();
-
+        return usuarioService.listaUsuario();
     }
 
     @GetMapping("/buscaId/{id}")
     public Usuario getUsuario(@PathVariable("id") int id) {
-        return usuarioRepository.findById(id).get();
-
+        return usuarioService.getUsuario(id);
     }
 
     @DeleteMapping("/excluir/{id}")
     public void delUsuario(@PathVariable("id") int id) {
-        usuarioRepository.deleteById(id);
+       usuarioService.delUsuario(id);;
 
     }
 
