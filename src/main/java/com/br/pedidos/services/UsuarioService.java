@@ -1,6 +1,5 @@
 package com.br.pedidos.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.br.pedidos.dto.UsuarioDto;
-import com.br.pedidos.dto.UsuarioDtoLogin;
 import com.br.pedidos.entities.Usuario;
 import com.br.pedidos.repository.UsuarioRepository;
 
@@ -20,7 +18,7 @@ public class UsuarioService {
     UsuarioRepository usuarioRepository;
 
     public List<UsuarioDto> listaUsuario() {
-        return usuarioRepository.findAll().stream().map(x -> new UsuarioDto(x)).collect(Collectors.toList());
+        return usuarioRepository.findAll().stream().map(UsuarioDto::new).collect(Collectors.toList());
     }
 
     public void cadastro(Usuario usuario) {
@@ -52,7 +50,7 @@ public class UsuarioService {
 
     public boolean login(Usuario usuario) {
         return usuarioRepository.findAll().stream()
-            .anyMatch(usuarioDtoLogin -> usuarioDtoLogin.getCpf().equals(usuario.getCpf())
+            .anyMatch( usuarioDtoLogin -> usuarioDtoLogin.getCpf().equals(usuario.getCpf())
                     && usuarioDtoLogin.getSenha().equals(usuario.getSenha()));
     }
 
