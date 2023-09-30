@@ -1,10 +1,15 @@
 package com.br.pedidos.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
+
+import com.br.pedidos.dto.UsuarioDto;
+import com.br.pedidos.dto.UsuarioDtoLogin;
 import com.br.pedidos.entities.Usuario;
 import com.br.pedidos.repository.UsuarioRepository;
 
@@ -14,8 +19,8 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    public List<Usuario> listaUsuario() {
-        return usuarioRepository.findAll();
+    public List<UsuarioDto> listaUsuario() {
+        return usuarioRepository.findAll().stream().map(x -> new UsuarioDto(x)).collect(Collectors.toList());
     }
 
     public void cadastro(Usuario usuario) {
@@ -37,12 +42,18 @@ public class UsuarioService {
         }
     }
 
-    public Usuario getUsuario(int id) {
-        return usuarioRepository.findById(id).get();
+    public UsuarioDto getUsuario(int id) {
+        return usuarioRepository.findById(id).map(x -> new UsuarioDto(x)).get();
     }
 
     public void delUsuario(int id) {
         usuarioRepository.deleteById(id);
+    }
+
+    public boolean login(Usuario usuario) {
+        return usuarioRepository.findAll().stream()
+            .anyMatch(usuarioDtoLogin -> usuarioDtoLogin.getCpf().equals(usuario.getCpf())
+                    && usuarioDtoLogin.getSenha().equals(usuario.getSenha()));
     }
 
 }

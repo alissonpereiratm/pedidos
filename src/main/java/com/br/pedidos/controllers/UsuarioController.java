@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.br.pedidos.dto.UsuarioDto;
 import com.br.pedidos.entities.Usuario;
 import com.br.pedidos.repository.UsuarioRepository;
 import com.br.pedidos.services.UsuarioService;
@@ -26,7 +27,7 @@ public class UsuarioController {
 
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(Usuario usuario) {
-    usuarioService.cadastro(usuario);
+        usuarioService.cadastro(usuario);
         return ResponseEntity.ok("Usuario salvo com sucesso.");
     }
 
@@ -40,19 +41,30 @@ public class UsuarioController {
     }
 
     @GetMapping("/lista")
-    public List<Usuario> getObject() {
+    public List<UsuarioDto> getObject() {
         return usuarioService.listaUsuario();
     }
 
     @GetMapping("/buscaId/{id}")
-    public Usuario getUsuario(@PathVariable("id") int id) {
+    public UsuarioDto getUsuario(@PathVariable("id") int id) {
         return usuarioService.getUsuario(id);
     }
 
     @DeleteMapping("/excluir/{id}")
     public void delUsuario(@PathVariable("id") int id) {
-       usuarioService.delUsuario(id);;
+        usuarioService.delUsuario(id);
+        ;
 
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(Usuario usuario) {
+        System.out.println(usuario.getSenha());
+        if (usuarioService.login(usuario)) {
+            return ResponseEntity.ok("Login Sucess");
+        } else {
+            return ResponseEntity.ok("Login failed");
+        }
     }
 
 }

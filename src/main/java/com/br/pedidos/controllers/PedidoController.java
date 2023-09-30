@@ -1,6 +1,5 @@
 package com.br.pedidos.controllers;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.pedidos.entities.Pedido;
-import com.br.pedidos.repository.PedidoRepository;
 import com.br.pedidos.services.PedidoService;
 
 @RestController
