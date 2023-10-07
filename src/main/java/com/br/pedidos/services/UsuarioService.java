@@ -5,9 +5,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.br.pedidos.dto.UsuarioDto;
+import com.br.pedidos.dto.UsuarioDtoLogin;
 import com.br.pedidos.entities.Usuario;
 import com.br.pedidos.repository.UsuarioRepository;
 
@@ -17,11 +21,22 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    private PasswordEncoder passwordEncoder;
+
+    
+
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder=new BCryptPasswordEncoder();
+    }
+
     public List<UsuarioDto> listaUsuario() {
         return usuarioRepository.findAll().stream().map(UsuarioDto::new).collect(Collectors.toList());
     }
 
     public void cadastro(Usuario usuario) {
+        String senhaEncoder=this.passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaEncoder);
         usuarioRepository.save(usuario);
     }
 
@@ -48,10 +63,14 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public boolean login(Usuario usuario) {
-        return usuarioRepository.findAll().stream()
-            .anyMatch( usuarioDtoLogin -> usuarioDtoLogin.getCpf().equals(usuario.getCpf())
-                    && usuarioDtoLogin.getSenha().equals(usuario.getSenha()));
+    public ResponseEntity<String> login(UsuarioDtoLogin usuario) {
+        if (usuarioRepository.findAll().stream()
+                .anyMatch(usuarioDtoLogin -> usuarioDtoLogin.getCpf().equals(usuario.getCpf())
+                        && passwordEncoder.matches(usuario.getSenha(), usuarioDtoLogin.getSenha()))) {
+            return ResponseEntity.ok("Login Sucess");
+        } else {
+            return ResponseEntity.badRequest().body("Login failed");
+        }
     }
 
 }

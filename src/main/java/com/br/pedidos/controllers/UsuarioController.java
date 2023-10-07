@@ -1,7 +1,6 @@
 package com.br.pedidos.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.pedidos.dto.UsuarioDto;
+import com.br.pedidos.dto.UsuarioDtoLogin;
 import com.br.pedidos.entities.Usuario;
-import com.br.pedidos.repository.UsuarioRepository;
 import com.br.pedidos.services.UsuarioService;
 
 @RestController
@@ -58,13 +57,8 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(Usuario usuario) {
-        System.out.println(usuario.getSenha());
-        if (usuarioService.login(usuario)) {
-            return ResponseEntity.ok("Login Sucess");
-        } else {
-            return ResponseEntity.ok("Login failed");
-        }
+    public ResponseEntity<String> login(UsuarioDtoLogin usuario) {
+        return usuarioService.login(usuario);
     }
 
 }
