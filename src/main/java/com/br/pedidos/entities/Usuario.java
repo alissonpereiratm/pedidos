@@ -37,13 +37,7 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getUsuarioNome() {
-        return usuarioNome;
-    }
-
-    public void setUsuarioNome(String usuarioNome) {
-        this.usuarioNome = usuarioNome;
-    }
+   
 
     public List<Pedido> getPedidos() {
         return pedidos;
@@ -69,11 +63,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getUsuario() {
+    public String getUsuarioNome() {
         return usuarioNome;
     }
 
-    public void setUsuario(String usuarioNome) {
+    public void setUsuarioNome(String usuarioNome) {
         this.usuarioNome = usuarioNome;
     }
 

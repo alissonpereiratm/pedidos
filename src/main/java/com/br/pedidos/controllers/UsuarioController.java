@@ -26,6 +26,8 @@ public class UsuarioController {
 
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(Usuario usuario) {
+       
+
         usuarioService.cadastro(usuario);
         return ResponseEntity.ok("Usuario salvo com sucesso.");
     }
