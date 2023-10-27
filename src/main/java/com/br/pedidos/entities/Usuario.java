@@ -25,19 +25,16 @@ public class Usuario {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Pedido> pedidos;
 
-   
     public Usuario() {
     }
 
-     public String getSenha() {
+    public String getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-   
 
     public List<Pedido> getPedidos() {
         return pedidos;
@@ -86,7 +83,5 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
 }
