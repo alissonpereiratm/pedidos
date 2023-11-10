@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.br.pedidos.entities.Endereco;
 import com.br.pedidos.entities.FormaPagamento;
 import com.br.pedidos.repository.FormaPagamentoRepository;
 

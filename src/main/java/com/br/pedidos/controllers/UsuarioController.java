@@ -41,7 +41,7 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/lista")
+    @GetMapping("/list")
     public List<UsuarioDto> getObject() {
         return usuarioService.listaUsuario();
     }
