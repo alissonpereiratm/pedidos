@@ -1,6 +1,7 @@
 package com.br.pedidos.entities;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -8,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido {
@@ -21,6 +23,8 @@ public class Pedido {
     private Endereco endereco;
     @ManyToOne(cascade = CascadeType.REFRESH)
     private FormaPagamento formaPagamento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pedido")
+    private List<Produto> produtos;
 
     public Pedido(int id, LocalDate data, Usuario usuario) {
         this.id = id;
@@ -37,6 +41,14 @@ public class Pedido {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     public LocalDate getData() {
