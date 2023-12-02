@@ -17,12 +17,15 @@ import com.br.pedidos.services.PedidoService;
 @RequestMapping(value = "/pedido")
 public class PedidoController {
 
+
+
     @Autowired
     PedidoService pedidoService;
 
     @PostMapping("/cadastro")
     public void cadastro(Pedido pedido) {
       pedidoService.cadastro(pedido);
+      
     }
 
     @GetMapping("/lista")

@@ -1,5 +1,7 @@
 package com.br.pedidos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +17,7 @@ public class Produto {
     private String nome;
     private Double preco;
     private String descricao;
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.REFRESH)
     private Pedido pedido;
 
@@ -26,6 +29,15 @@ public class Produto {
         this.descricao = descricao;
         this.pedido = pedido;
     }
+
+    
+
+    @Override
+    public String toString() {
+        return "Produto [nome=" + nome + ", preco=" + preco + ", descricao=" + descricao + ", pedido=" + pedido + "]";
+    }
+
+
 
     public Produto() {
     }

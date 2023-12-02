@@ -9,26 +9,28 @@ import com.br.pedidos.repository.ProdutoRepository;
 @Service
 public class ProdutoService {
 
-     @Autowired
-    ProdutoRepository produtoRepository;
+  @Autowired
+  ProdutoRepository produtoRepository;
 
-
-       public void cadastro(Produto produto) {
+  public void cadastro(Produto produto) {
+    try {
       produtoRepository.save(produto);
+    } catch (Exception e) {
+      System.out.println(e.toString());
     }
-    
+  }
 
-      public List<Produto> getObject() {
-        return produtoRepository.findAll();
-    }
+  public List<Produto> getObject() {
+    return produtoRepository.findAll();
+  }
 
-      public Produto getProduto( int id) {
-        return produtoRepository.findById(id).get();
-    }
+  public Produto getProduto(int id) {
+    return produtoRepository.findById(id).get();
+  }
 
-    public void delProduto( int id) {
-        produtoRepository.deleteById(id);
+  public void delProduto(int id) {
+    produtoRepository.deleteById(id);
 
-    }
-    
+  }
+
 }

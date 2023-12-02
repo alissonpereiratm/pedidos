@@ -14,10 +14,14 @@ public class PedidoService {
 
     @Autowired
     PedidoRepository pedidoRepository;
+     @Autowired
+    EmailService emailService;
 
       public void cadastro(Pedido pedido) {
         pedido.setData(LocalDate.now());
         pedidoRepository.save(pedido);
+        emailService.sendEmail(pedido);
+
     }
 
   public List<Pedido> getObject() {
